@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saudeja/index.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,7 +66,8 @@ class LoginScreen extends StatelessWidget {
 
                 // Botão Logar
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () { const index();
+
                     // Lógica de login
                   },
                   style: ElevatedButton.styleFrom(
