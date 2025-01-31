@@ -66,8 +66,13 @@ class LoginScreen extends StatelessWidget {
 
                 // Botão Logar
                 ElevatedButton(
-                  onPressed: () { const index();
-
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Index(),
+                      ),
+                    );
                     // Lógica de login
                   },
                   style: ElevatedButton.styleFrom(
@@ -103,3 +108,5 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+
