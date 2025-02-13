@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Calendário Flutter',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: CalendarScreen(),
-    );
-  }
-}
-
 class CalendarScreen extends StatefulWidget {
+  const CalendarScreen({super.key});
+
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }
@@ -29,10 +13,28 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
+  // Exemplo de datas marcadas para vacinação
+  final Map<DateTime, List<String>> _markedVaccines = {
+    DateTime.utc(2025, 2, 15): ['Hepatite B'],
+    DateTime.utc(2025, 3, 10): ['Tríplice Viral'],
+    DateTime.utc(2025, 4, 5): ['Febre Amarela'],
+    DateTime.utc(2025, 5, 20): ['COVID-19 (1ª Dose)'],
+    DateTime.utc(2025, 6, 15): ['COVID-19 (2ª Dose)'],
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Calendário')),
+      appBar: AppBar(
+        title: const Text("Saúde Já"),
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -59,9 +61,40 @@ class _CalendarScreenState extends State<CalendarScreen> {
               onPageChanged: (focusedDay) {
                 _focusedDay = focusedDay;
               },
+              eventLoader: (day) {
+                return _markedVaccines[day] ?? [];
+              },
             ),
+            const SizedBox(height: 20),
+            _selectedDay != null && _markedVaccines.containsKey(_selectedDay!)
+                ? Column(
+              children: _markedVaccines[_selectedDay!]!
+                  .map((vac) => Text("Vacina: $vac",
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)))
+                  .toList(),
+            )
+                : const Text("Nenhuma vacina marcada para este dia."),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Perfil",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2),
+            label: "Grupo Familiar",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.support_outlined),
+            label: "Suporte",
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.blue,
+        onTap: (index) {},
       ),
     );
   }

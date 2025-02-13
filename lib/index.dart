@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'registroVacina.dart';
+import 'Calendario.dart';
+import 'Geocalizacao.dart';
+import 'receitaMedicamento.dart';
+
 
 class Index extends StatelessWidget {
   const Index({super.key});
@@ -50,7 +55,14 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Calendário')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CalendarScreen()),
+                      );
+                    },
+                    child: const Text('Calendário'),
+                  ),
                 ],
               ),
             ),
@@ -81,8 +93,15 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Registro de vacinação')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const VaccineRecordsScreen()),
+                      );
+                    },
+                    child: const Text('Registro de vacinação'),
+                  ),
+
                 ],
               ),
             ),
@@ -96,7 +115,15 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Medicamentos')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PrescriptionScreen()),
+                      );
+                    },
+                    child: const Text('Medicamentos'),
+                  ),
+
                 ],
               ),
             ),
@@ -110,7 +137,15 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Geolocalização')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MapScreen()),
+                      );
+                    },
+                    child: const Text('Geolocalização'),
+                  ),
+
                 ],
               ),
             ),

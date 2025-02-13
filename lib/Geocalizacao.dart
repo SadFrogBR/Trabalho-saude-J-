@@ -3,25 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Hospitais Próximos',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MapScreen(),
-    );
-  }
-}
-
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -74,13 +58,13 @@ class _MapScreenState extends State<MapScreen> {
           point: LatLng(position.latitude + 0.001, position.longitude + 0.001),
           width: 80,
           height: 80,
-          child: Icon(Icons.local_hospital, color: Colors.red, size: 40),
+          child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
         ),
         Marker(
           point: LatLng(position.latitude - 0.002, position.longitude - 0.002),
           width: 80,
           height: 80,
-          child: Icon(Icons.local_hospital, color: Colors.red, size: 40),
+          child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
         ),
       ];
     });
@@ -89,9 +73,18 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Hospitais Próximos')),
+      appBar: AppBar(
+        title: const Text("Saúde Já"),
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: _currentPosition == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : FlutterMap(
         mapController: _mapController,
         options: MapOptions(
@@ -105,6 +98,25 @@ class _MapScreenState extends State<MapScreen> {
           ),
           MarkerLayer(markers: _markers),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Perfil",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2),
+            label: "Grupo Familiar",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.support_outlined),
+            label: "Suporte",
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.blue,
+        onTap: (index) {},
       ),
     );
   }
