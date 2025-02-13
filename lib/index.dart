@@ -3,6 +3,7 @@ import 'registroVacina.dart';
 import 'Calendario.dart';
 import 'Geocalizacao.dart';
 import 'receitaMedicamento.dart';
+import 'consulta.dart';
 
 
 class Index extends StatelessWidget {
@@ -78,7 +79,14 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Lembrança')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ConsultaApp()),
+                      );
+                    },
+                    child: const Text('Lembrança consulta'),
+                  ),
                 ],
               ),
             ),
