@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'perfil.dart';
+import 'grupoFamiliar.dart';
 
 void main() {
   runApp(const ConsultaApp());
@@ -19,6 +21,7 @@ class ConsultaApp extends StatelessWidget {
 class ConsultaScreen extends StatefulWidget {
   const ConsultaScreen({super.key});
 
+
   @override
   _ConsultaScreenState createState() => _ConsultaScreenState();
 }
@@ -31,7 +34,20 @@ class _ConsultaScreenState extends State<ConsultaScreen> {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {

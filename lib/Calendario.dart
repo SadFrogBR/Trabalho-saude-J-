@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'perfil.dart';
+import 'grupoFamiliar.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -21,7 +23,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
     DateTime.utc(2025, 5, 20): ['COVID-19 (1ª Dose)'],
     DateTime.utc(2025, 6, 15): ['COVID-19 (2ª Dose)'],
   };
+  int _selectedIndex = 0; // Índice da aba selecionada
 
+  // Função para alterar a aba ativa
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +115,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ],
         currentIndex: 0,
         selectedItemColor: Colors.blue,
-        onTap: (index) {},
+        onTap: _onItemTapped,
       ),
     );
   }

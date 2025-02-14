@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'grupoFamiliar.dart';
+import 'perfil.dart';
 
 class PrescriptionScreen extends StatefulWidget {
   const PrescriptionScreen({super.key});
@@ -8,12 +10,25 @@ class PrescriptionScreen extends StatefulWidget {
 }
 
 class _PrescriptionScreenState extends State<PrescriptionScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // Índice da aba selecionada
 
+  // Função para alterar a aba ativa
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+      );
+    }
   }
 
   final List<Map<String, String>> prescriptions = [
@@ -22,6 +37,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
     {'name': 'Amoxicilina', 'date': '20/03/2025', 'doctor': 'Dr. Oliveira'},
     {'name': 'Omeprazol', 'date': '05/04/2025', 'doctor': 'Dra. Lima'},
   ];
+
 
   @override
   Widget build(BuildContext context) {

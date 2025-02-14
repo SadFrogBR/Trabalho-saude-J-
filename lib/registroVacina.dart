@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'grupoFamiliar.dart';
+import 'perfil.dart';
 
 class VaccineRecordsScreen extends StatefulWidget {
   const VaccineRecordsScreen({super.key});
@@ -8,12 +10,25 @@ class VaccineRecordsScreen extends StatefulWidget {
 }
 
 class _VaccineRecordsScreenState extends State<VaccineRecordsScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // Índice da aba selecionada
 
+  // Função para alterar a aba ativa
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+      );
+    }
   }
 
   final List<Map<String, String>> vaccines = [

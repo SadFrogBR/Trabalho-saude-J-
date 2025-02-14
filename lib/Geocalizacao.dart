@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'grupoFamiliar.dart';
+import 'perfil.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -14,6 +16,7 @@ class _MapScreenState extends State<MapScreen> {
   Position? _currentPosition;
   final MapController _mapController = MapController();
   List<Marker> _markers = [];
+
 
   @override
   void initState() {
@@ -70,6 +73,26 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  int _selectedIndex = 0; // Índice da aba selecionada
+
+  // Função para alterar a aba ativa
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +139,7 @@ class _MapScreenState extends State<MapScreen> {
         ],
         currentIndex: 0,
         selectedItemColor: Colors.blue,
-        onTap: (index) {},
+        onTap: _onItemTapped,
       ),
     );
   }

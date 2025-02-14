@@ -5,6 +5,8 @@ import 'Geocalizacao.dart';
 import 'receitaMedicamento.dart';
 import 'consulta.dart';
 import 'perfil.dart';
+import 'telaAvalicao.dart';
+import 'grupoFamiliar.dart';
 
 class Index extends StatelessWidget {
   const Index({super.key});
@@ -38,6 +40,11 @@ class _TelaInicialState extends State<TelaInicial> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
+    if (index == 1){
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const FamilyGroupPage())
       );
     }
   }
@@ -174,8 +181,14 @@ class _TelaInicialState extends State<TelaInicial> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Avaliação Conteúdo')),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BodyPainScreen()),
+                      );
+                    },
+                    child: const Text('Tela de Avaliação'),
+                  ),
                 ],
               ),
             ),
