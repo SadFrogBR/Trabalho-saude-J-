@@ -11,19 +11,19 @@ class ConsultaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TelaInicial(),
+      home: ConsultaScreen(),
     );
   }
 }
 
-class TelaInicial extends StatefulWidget {
-  const TelaInicial({super.key});
+class ConsultaScreen extends StatefulWidget {
+  const ConsultaScreen({super.key});
 
   @override
-  _TelaInicialState createState() => _TelaInicialState();
+  _ConsultaScreenState createState() => _ConsultaScreenState();
 }
 
-class _TelaInicialState extends State<TelaInicial> {
+class _ConsultaScreenState extends State<ConsultaScreen> {
   int _selectedIndex = 0; // Índice da aba selecionada
 
   // Função para alterar a aba ativa
@@ -39,12 +39,22 @@ class _TelaInicialState extends State<TelaInicial> {
       appBar: AppBar(
         title: const Text('Saúde já', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blue,
-        leading: IconButton(
+        leading: Navigator.canPop(context)
+            ? IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
-        ),
+        )
+            : null,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -4,7 +4,7 @@ import 'Calendario.dart';
 import 'Geocalizacao.dart';
 import 'receitaMedicamento.dart';
 import 'consulta.dart';
-
+import 'perfil.dart';
 
 class Index extends StatelessWidget {
   const Index({super.key});
@@ -33,6 +33,13 @@ class _TelaInicialState extends State<TelaInicial> {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 0) { // Índice do botão "Perfil"
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+      );
+    }
   }
 
   @override
@@ -82,7 +89,7 @@ class _TelaInicialState extends State<TelaInicial> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ConsultaApp()),
+                        MaterialPageRoute(builder: (context) => const ConsultaScreen()),
                       );
                     },
                     child: const Text('Lembrança consulta'),
