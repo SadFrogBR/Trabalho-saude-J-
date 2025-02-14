@@ -14,13 +14,13 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   Position? _currentPosition;
-  final MapController _mapController = MapController();
+  late MapController _mapController;
   List<Marker> _markers = [];
-
 
   @override
   void initState() {
     super.initState();
+    _mapController = MapController();
     _getCurrentLocation();
   }
 
@@ -47,24 +47,56 @@ class _MapScreenState extends State<MapScreen> {
 
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+
     setState(() {
       _currentPosition = position;
-      _mapController.move(LatLng(position.latitude, position.longitude), 14.0);
-      _addHospitalsMarkers(position);
+      _addHospitalsMarkers();
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _mapController.move(
+          LatLng(position.latitude, position.longitude),
+          14.0,
+        );
+      }
     });
   }
 
-  void _addHospitalsMarkers(Position position) {
+  void _addHospitalsMarkers() {
     setState(() {
       _markers = [
+        // UPA Corumbá
         Marker(
-          point: LatLng(position.latitude + 0.001, position.longitude + 0.001),
+          point: LatLng(-19.0112, -57.6512),
           width: 80,
           height: 80,
           child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
         ),
+        // Hospital CASSEMS
         Marker(
-          point: LatLng(position.latitude - 0.002, position.longitude - 0.002),
+          point: LatLng(-19.0081, -57.6576),
+          width: 80,
+          height: 80,
+          child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
+        ),
+        // Hospital Municipal Dr. Règis Bittencourt
+        Marker(
+          point: LatLng(-19.0037, -57.6518),
+          width: 80,
+          height: 80,
+          child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
+        ),
+        // Unidade Básica de Saúde Luís Fragelli
+        Marker(
+          point: LatLng(-19.0065, -57.6493),
+          width: 80,
+          height: 80,
+          child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
+        ),
+        // Pronto Socorro Municipal
+        Marker(
+          point: LatLng(-19.0142, -57.6580),
           width: 80,
           height: 80,
           child: const Icon(Icons.local_hospital, color: Colors.red, size: 40),
@@ -73,26 +105,27 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  int _selectedIndex = 0; // Índice da aba selecionada
+  int _selectedIndex = 0;
 
-  // Função para alterar a aba ativa
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
-    if (index == 0) { // Índice do botão "Perfil"
+    if (index == 0) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const PerfilScreen()),
       );
     }
-    if (index == 1){
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const FamilyGroupPage())
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FamilyGroupPage()),
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +152,10 @@ class _MapScreenState extends State<MapScreen> {
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c'],
           ),
-          MarkerLayer(markers: _markers),
+          MarkerLayer(
+            markers: _markers,
+            rotate: true,
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -129,11 +165,11 @@ class _MapScreenState extends State<MapScreen> {
             label: "Perfil",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_2),
+            icon: Icon(Icons.people),
             label: "Grupo Familiar",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.support_outlined),
+            icon: Icon(Icons.support),
             label: "Suporte",
           ),
         ],
