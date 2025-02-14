@@ -50,7 +50,7 @@ class BodyPainScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset('image/corpo.jpg', width: 500, fit: BoxFit.contain), // Ajustando a imagem
+              Image.asset('assets/image/corpo.jpg', width: 500, fit: BoxFit.contain), // Ajustando a imagem
               Positioned(
                 top: 50,
                 child: _buildPainButton(context, "Cabeça"),
